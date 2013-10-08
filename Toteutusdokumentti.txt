@@ -1,0 +1,131 @@
+TOTEUTUSDOKUMENTTI
+
+----------------------------------------
+
+Toteutukseni ratkaisee ongelman juuri niin tehokkaasti kuin se Määrittelydokumentissa esitetään. Tässä tapauksessa vain erityiset distance- ja previous-taulukot korvataan solmutietueisiin sisällytetyillä arvoilla.
+
+----------------------------------------
+
+Solmutietue:
+----------------------------------------
+
+typedef struct dNode{
+    int ok; (1)
+    int distance; (2)
+    int index; (3)
+    struct dNode *previous; (4)
+    int distances_to[V]; (5)
+}dNode; 
+
+(1) Dijkstran algoritmin pseudokielisessä yleismuodossa on Q-lista(tai jono tai pino riippuen hiukan toteutuksesta), josta aina poistetaan solmu silloin kun se on käsitelty. Toteutuksessani solmuja ei kuitenkaan poisteta listasta(jota ei myöskään luoda, vaan sovellutukseni käyttää annettua listaa sellaisenaan hyväksi), vaan solmutietueessa esitellyn ok-muuttujan arvoksi asetetaan 1.
+
+(2) Integer-tyyppinen muuttuja distance kertoo kulloisenkin solmun ns. lyhimmän etäisyyden lähdesolmusta(ts. lähtösolmusta). Käytännössä tämä siis tarkoittaa lyhintä polkua A~>B, kun A on lähtösolmu ja B on jokin valittu solmu verkosta. Tämä korvaa Dijkstran algoritmin pseudokoodillisessa muodossa esitetyn distance-taulukon, joka yleismuodossa esiteltynä sisältäisi juuri tämän lyhimmän polun A~>B pituuden.
+
+(3) Index-muuttuja on lähinnä kirjanpidollinen muuttuja. Se kertoo solmun A vieruslistan ns. y-koordinaatin verkkoa esittävässä taulukossa. 
+
+(4) Käytännössä tämä osoitin on Dijkstran algoritmin kannalta kaikkein kriittisin, koska sen avulla voidaan muodostaa ja ns. levittäää auki koko polku A~>B. Tämä osoitin siis osoittaa siihen solmuun, jonka kautta lyhin polku ko. solmuun kulkee ja joka on sen vierussolmu.
+
+(5) Tämä taulukko sisältää polkujen pituudet solmusta kaikkiin sen vierussolmuihin. Tämä taulukko liittyy siis erityisesti juuri verkko-tietorakenteeseen, jota Dijkstran algoritmi käyttää hyväksi.
+
+----------------------------------------
+
+Miksi aikavaativuus todella on O(|V|^2)?
+----------------------------------------
+
+Toteuttamin algoritmi pseudokoodisessa muodossa:
+
+dijkstra(dNode* source){
+    source->distance=0 (1)
+    while(1) (n)
+        u = smallest_distance_q() (n)
+        if(u==-1) (1)
+            break (1)
+        if(list[0][u]->distance==INT_MAX) (1)
+            break (1)
+        for(i=1; i<V; i++) (n-1)
+            if(list[i][u]!=NULL)
+            int alt = list[0][u]->distance + list[i][u]->distances_to[u]; (1)
+            if(alt < list[i][u]->distance) (1)
+                list[i][u]->distance=alt; (1)
+                list[i][u]->previous=list[0][u]; (1)
+
+--
+
+Dijkstran algoritmin aikavaativuuden kannalta kaksi erityistä algoritmin osa-aluetta nousee esille:
+
+1. Kuinka tehokkaasti löydetään sellainen u, jonka "distance" on kaikkein pienin? 
+2. Kuinka tehokkaasti voidaan asettaa alt=distance[u]+dist_between(u, v)?
+
+--
+
+Toteutuksessani ongelma numero 1 ratkaistaan seuraavasti:
+
+smallest_distance()
+	dist_ret=INT_MAX
+	for i=0; i<V; i++;
+		if list[0][i] != NULL
+			if list[0][i]->distance<dist_ret && list[0][j]->ok==0
+				dist_ret=list[0][j]->distance;
+                		list[0][j]->ok=1;
+                		ret=j;
+				u=1
+		else
+			break;
+	if(u==0)
+        	return -1;
+    	
+   	list[0][ret]->ok=1;
+    	return ret;
+
+- Missä list on on verkko mallia list[V][V], joka koostuu vieruslistoista list[V].
+- Missä dist_ret on muuttuja, jonka kautta vertaillaan solmujen distance-muuttujia.
+- Missä ret kertoo valitun solmun sijainnin taulukossa list: list[0][ret]
+
+Ja kuten näkyy, metodi käy lineaarisesti lävitse verkon vieruslistoja. Dominoivana elementtinä on siis for-silmukka, jonka aikavaativuus on O(n)(ts. O(|V|)), ja muut osa-aleet ovat vakioaikaisia.
+
+--
+
+Ongelma numero 2 taas on toteutettu vakioaikaisesti hakemalla solmun v distances_to-taulukosta polun u->v pituus indeksillä u.
+
+Eli:
+
+int alt = list[0][u]->distance + list[i][u]->distances_to[u];
+
+- Missä muuttuja u viittaa solmuun liitettävään indeksiin
+- Missä i on naapurisolmun paikka vieruslistassa
+
+--
+
+Koska algoritmin while-silmukka voi käydä läpi kaikki verkon solmut, on sen aikavaativuus yksinään lineaarinen. Ja koska solmulla voi olla |V|-1 määrä naapureita, ja edelleen koska smallest_distance()-metodi on myös lineaarinen, ja nämä sisältyvät algoritmin pääsilmukkaan(while), on algoritmin aikavaativuus pahimmassa tapauksessa O(|v||v|), eli O(n^2). 
+
+----------------------------------------
+
+Miksi tilavaativuus todella on O(|V|)?
+----------------------------------------
+
+Kun aikavaativuuden osalta kriittisin algoritmin osa-alue on metodi smallest_distance(), tilavaativuuden osalta kannattaa keskittyä erityisesti siihen dataan, jonka Dijkstran algoritmi muodostaa verkkoa hyväksi käyttäen.
+
+Koska tämän algoritmin tarkoituksena on nimenomaan tuottaa lyhimpiä polkuja A~>B, sekä määrittää noiden polkujen pituuksia, kannattaa siis tarkastella niitä tietorakenteita, joihin algoritmi tämän datan tallettaa.
+
+O(|V|) tason tilavaativuus muodostuu Dijkstran algoritmissa taulukoiden previous ja distance kautta. Toteuttamassani C-sovelluksessa algoritmi syöttää nämä tarvittavat tiedot solmutietuisiin, mutta periaate on silti sama. Koska algoritmi ei näiden lisäksi käytä kuin vakiotilallisesti apumuuttujia, on soveltamani algoritmin tilavaativuus myös O(|V|).
+
+--
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	  
+
+

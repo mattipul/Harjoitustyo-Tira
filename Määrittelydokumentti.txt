@@ -1,0 +1,21 @@
+M‰‰rittelydokumentti
+
+-----------------------------------
+
+Ratkaisen ns. lyhimm‰n polun ongelman. Tarkoituksena on siis lˆyt‰‰ lyhin polku solmujen A ja B v‰lille verkossa G. Ongelman ratkaisemiseen aion k‰ytt‰‰ Dijkstran algoritmia, sek‰ tietorakenteena verkkoa, joka on tallennettu vieruslistamuodossa.
+
+
+Dijkstran algoritmin kokonaisaikavaativuus on t‰ss‰ tapauksessa O(|V|*|V|) -luokkaa, ja tilavaativuus O(|V|) luokkaa. Molemmissa tapauksissa |V| viittaa solmujen lukum‰‰r‰‰n verkossa.
+
+-----------------------------------
+
+L‰hteet
+
+
+Dijkstra, E. W. (1959). "A note on two problems in connexion with graphs". Numerische Mathematik 1: 269ñ271
+Dijkstra's algorithm in C: http://www.rawbytes.com/dijkstras-algorithm-in-c/
+
+
+
+
+

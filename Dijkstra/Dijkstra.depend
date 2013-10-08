@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1380795554 source:c:\users\matti\tiralabra\harjoitustyo-tira\dijkstra\structure.c
+	"structure.h"
+
+1380792810 c:\users\matti\tiralabra\harjoitustyo-tira\dijkstra\structure.h
+	<limits.h>
+	<stdio.h>
+
+1380795465 source:c:\users\matti\tiralabra\harjoitustyo-tira\dijkstra\main.c
+	<stdio.h>
+	<stdlib.h>
+	"structure.h"
+
+1380790134 c:\users\matti\tiralabra\harjoitustyo-tira\dijkstra\cmd.h
+	"structure.h"
+
+1380789601 source:c:\users\matti\tiralabra\harjoitustyo-tira\dijkstra\cdm.c
+
+1380795652 source:c:\users\matti\tiralabra\harjoitustyo-tira\dijkstra\cmd.c
+	"cmd.h"
+
