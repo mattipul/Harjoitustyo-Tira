@@ -1,6 +1,8 @@
-TOTEUTUSDOKUMENTTI
+TOTEUTUSDOKUMENTTI(muutoksia tulee)
 
 ----------------------------------------
+
+Ensin tässä täytyy huomauttaa, että toteutukseni olettaa vahvasti, että käyttäjä antaa syötteenä oikeanlaisen, yksinkertaisen verkon. Toteutukseni on siis ennemminkin työkalu, kuin ohjelma, joka ohjaa käyttäjää tarpeen mukaan. 
 
 Toteutukseni ratkaisee ongelman juuri niin tehokkaasti kuin se Määrittelydokumentissa esitetään. Tässä tapauksessa vain erityiset distance- ja previous-taulukot korvataan solmutietueisiin sisällytetyillä arvoilla.
 

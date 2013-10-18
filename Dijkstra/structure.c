@@ -3,18 +3,17 @@
 void init(dNode *list[V][V])
 {
     int i,j;
-    for(i=0; i<V; i++)
-    {
+
         for(j=0; j<V; j++)
         {
-            if(list[i][j]!=NULL)
+            if(list[0][j]!=NULL)
             {
-                list[i][j]->ok=0;
-                list[i][j]->previous=NULL;
-                list[i][j]->distance=INT_MAX;
+                list[0][j]->ok=0;
+                list[0][j]->previous=NULL;
+                list[0][j]->distance=INT_MAX;
             }
         }
-    }
+
 }
 
 int dist_between(dNode *a, dNode *b)
@@ -46,7 +45,7 @@ int smallest_distance_q()
             if(list[0][j]->distance<dist_ret && list[0][j]->ok==0)
             {
                 dist_ret=list[0][j]->distance;
-                list[0][j]->ok=1;
+                //list[0][j]->ok=1;
                 ret=j;
                 u=1;
                 //printf("OKs: %d %d\n", j, dist_ret);

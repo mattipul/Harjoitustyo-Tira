@@ -1,7 +1,7 @@
 #include "cmd.h"
 
 void init_cmd(){
-    printf("DIJKSTRAN ALGORITMI\n---------\n\n");
+    printf("\n---------\n\n");
     printf("Solmujen maara: ");
     int count;
     scanf("%d", &count);

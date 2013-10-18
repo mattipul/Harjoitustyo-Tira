@@ -1,0 +1,8 @@
+TESTAUSDOKUMENTTI(muutoksia tulee)
+------------------
+
+Käytän automaattisten testien luontiin erityistä Cunit-kirjastoa, jonka avulla luon testeistä suoritettavan binääritiedoston, joka taas kertoo, mitkä testit menivät läpi ja mitkä eivät menneet jne. Kyseessä on siis hiukan erityyppinen ratkaisu kuin Java-puolen JUnit, mutta tämä johtuu lähinnä C-kielen luonteesta.
+
+Dijkstran algoritmi voidaan jakaa käytännössä kahteen osaan; ensin suoritetaan alustus, eli ns. relaksointi ja tämän jälkeen suoritetaan varsinaisempi algoritmi. Testini siis kokeilee muutamalla eriasteisella verkolla ensin alustusta ja muutamalla verkolla varsinaisempaa algoritmia.
+
+Ja tällä hetkellä ainakin kaikki testit menevät läpi, joten tämä kertoo ainakin suuntaa-antavasti siitä, että toteutus toimii ainakin keskinkertaisesti.
